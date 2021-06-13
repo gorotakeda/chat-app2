@@ -1,5 +1,11 @@
 class Message < ApplicationRecord
   belongs_to :room
   belongs_to :user
-  validates :commnt, presence: true
+  has_one_attached :image
+
+  validates :commnt, presence: true, unless: :was_attached?
+
+  def was_attached?
+    self.image.attached?
+  end
 end
